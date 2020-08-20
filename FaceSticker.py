@@ -11,11 +11,14 @@ def midpoint(p1,p2):
 sun = cv2.imread("D:\\Vinhi\\cyclone.png")
 #Load videocapture
 cap = cv2.VideoCapture(URL)
+#Create detection of frontal face from dlib library
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('D:\\Data_Detection_csv\\shape_predictor_68_face_landmarks.dat')
 while True:
+    #Read images and convert colors
    _, frame = cap.read()
    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#Find location and shape for sticker
    faces = detector(gray)
    for face in faces:
       x, y = face.left() , face.top()
@@ -25,7 +28,7 @@ while True:
       right_pt =(landmarks.part(39).x, landmarks.part(39).y)
       sun_width = int(hypot(left_pt[0]-right_pt[0],left_pt[1]-right_pt[1])*1.25)
       sun_height = int(sun_width*.77)
-# Sticker pos
+    ### Sticker pos
       p11 = (landmarks.part(1).x,landmarks.part(1).y)
       p15 = (landmarks.part(15).x, landmarks.part(15).y)
       p28 = (landmarks.part(28).x,landmarks.part(28).y)
@@ -37,7 +40,7 @@ while True:
       bot_right1 = (int(pm2[0] + sun_width/2), int(pm2[1] + sun_height/2))
       top_left2 = (int(pm3[0] - sun_width / 2), int(pm3[1] - sun_height / 2))
       bot_right2 = (int(pm3[0] + sun_width / 2), int(pm3[1] + sun_height / 2))
-        #Adding sticker
+    ###Adding sticker
       sun_img = cv2.resize(sun,(sun_width, sun_height))
       sun_img_gray = cv2.cvtColor(sun_img, cv2.COLOR_BGR2GRAY)
       _, sun_mask = cv2.threshold(sun_img_gray, 25, 255, cv2.THRESH_BINARY_INV)
