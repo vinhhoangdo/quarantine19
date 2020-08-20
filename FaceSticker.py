@@ -1,16 +1,18 @@
+## Should be download 'shape_predictor_68_face_landmarks.dat' before.
+#Import lib
 import cv2
 import numpy as np
 import dlib
 from math import hypot
 
-URL = "http://192.168.100.7:8080/video"
+#URL = "http://192.168.100.7:8080/video"
 def midpoint(p1,p2):
     return int((p1.x +p2.x)/2) , int((p1.y + p2.y)/2)
 
 #Load image of sticker
 sun = cv2.imread("D:\\Vinhi\\cyclone.png")
 #Load videocapture
-cap = cv2.VideoCapture(URL)
+cap = cv2.VideoCapture(0)
 #Create detection of frontal face from dlib library
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('D:\\Data_Detection_csv\\shape_predictor_68_face_landmarks.dat')
